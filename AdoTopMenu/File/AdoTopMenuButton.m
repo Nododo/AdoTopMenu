@@ -14,13 +14,19 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        //triangle
         CGPoint indicatorPoint = CGPointMake(CGRectGetWidth(frame) - 8, CGRectGetHeight(frame) / 2 - 2);
         CAShapeLayer *indicator = [self createIndicatorWithColor:[UIColor blueColor] andPosition:indicatorPoint];
         [self.layer addSublayer:indicator];
+        self.indicator = indicator;
+        //line
+        CGPoint linePoint = CGPointMake(CGRectGetWidth(frame), CGRectGetHeight(frame) / 2);
+        CAShapeLayer *line = [self createLineWithColor:[UIColor grayColor] andPosition:linePoint];
+        [self.layer addSublayer:line];
+        
         [self setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         self.titleLabel.font = [UIFont systemFontOfSize:14];
-        self.indicator = indicator;
     }
     
     return self;
@@ -43,6 +49,24 @@
     layer.path = path.CGPath;
     layer.lineWidth = 0.8;
     layer.fillColor = color.CGColor;
+    
+    CGPathRef bound = CGPathCreateCopyByStrokingPath(layer.path, nil, layer.lineWidth, kCGLineCapButt, kCGLineJoinMiter, layer.miterLimit);
+    layer.bounds = CGPathGetBoundingBox(bound);
+    CGPathRelease(bound);
+    layer.position = point;
+    
+    return layer;
+}
+
+- (CAShapeLayer *)createLineWithColor:(UIColor *)color andPosition:(CGPoint)point {
+    CAShapeLayer *layer = [CAShapeLayer new];
+    UIBezierPath *path = [UIBezierPath new];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(0, CGRectGetHeight(self.frame) / 2)];
+    
+    layer.path = path.CGPath;
+    layer.lineWidth = 1;
+    layer.strokeColor = color.CGColor;
     
     CGPathRef bound = CGPathCreateCopyByStrokingPath(layer.path, nil, layer.lineWidth, kCGLineCapButt, kCGLineJoinMiter, layer.miterLimit);
     layer.bounds = CGPathGetBoundingBox(bound);

@@ -28,7 +28,7 @@
 - (UIControl *)backgroundView {
     if (!_backgroundView) {
         self.backgroundView = [[UIControl alloc] initWithFrame:CGRectZero];
-        _backgroundView.backgroundColor = [UIColor colorWithWhite:.5 alpha:.3];
+        _backgroundView.backgroundColor = [UIColor colorWithWhite:.8 alpha:.2];
         [_backgroundView addTarget:self action:@selector(touchBackgroundView) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backgroundView;
@@ -42,7 +42,7 @@
         for (int i = 0; i < columns; i ++) {
             CGFloat btnX =  btnW * i;
             AdoTopMenuButton *btn = [[AdoTopMenuButton alloc] initWithFrame:CGRectMake(btnX, 0, btnW, CGRectGetHeight(self.frame))];
-            btn.backgroundColor = kRandomColor;
+//            btn.backgroundColor = kRandomColor;
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             btn.tag = kOriginTag + i;
             [self addSubview:btn];
