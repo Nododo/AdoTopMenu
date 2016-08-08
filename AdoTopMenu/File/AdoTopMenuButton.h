@@ -12,10 +12,6 @@
 
 @property (nonatomic,weak)CAShapeLayer *indicator;
 
-//- (void)rotateDown;
-//
-//- (void)rotateReset;
-
 @property (nonatomic,assign)BOOL rotated;
 
 @end

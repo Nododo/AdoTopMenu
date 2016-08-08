@@ -23,6 +23,7 @@
 
 - (void)menu:(AdoTopMenu *)menu didSelectColumn:(NSInteger)column;
 - (void)menu:(AdoTopMenu *)menu deSelectColumn:(NSInteger)column;
+- (void)menu:(AdoTopMenu *)menu touchBackgroundViewForColumn:(NSInteger)column;
 
 @end
 
@@ -32,6 +33,7 @@
 
 @property (nonatomic, weak) id <AdoTopMenuDataSource> dataSource;
 
-- (void)menuReset;
+- (void)reSetTitle:(NSString *)title ForColumn:(NSInteger)column;
 
+- (void)menuReset;
 @end

@@ -25,13 +25,12 @@
     a.delegate = self;
     [self.view addSubview:a];
     self.a = a;
-    // Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)menu:(AdoTopMenu *)menu didSelectColumn:(NSInteger)column {
     NSLog(@"select = %ld", column);
     UIButton *top = [[UIButton alloc] initWithFrame:CGRectMake(0, 144, 375, 100)];
-    [top addTarget:self action:@selector(gtttth) forControlEvents:UIControlEventTouchUpInside];
+    [top addTarget:self action:@selector(hahah) forControlEvents:UIControlEventTouchUpInside];
     top.backgroundColor = [UIColor greenColor];
     [self.view addSubview:top];
     self.top = top;
@@ -49,13 +48,18 @@
     return [NSString stringWithFormat:@"这是第%ld列",column];
 }
 
+- (void)menu:(AdoTopMenu *)menu touchBackgroundViewForColumn:(NSInteger)column {
+    [self.top removeFromSuperview];
+}
+
+- (void)hahah {
+    [self.top removeFromSuperview];
+    [self.a menuReset];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (void)gtttth{
-    [self.top removeFromSuperview];
-    self.top = nil;
-    [self.a menuReset];
-}
+
 @end

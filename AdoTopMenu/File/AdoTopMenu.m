@@ -29,7 +29,7 @@
     if (!_backgroundView) {
         self.backgroundView = [[UIControl alloc] initWithFrame:CGRectZero];
         _backgroundView.backgroundColor = [UIColor colorWithWhite:.5 alpha:.3];
-        [_backgroundView addTarget:self action:@selector(menuReset) forControlEvents:UIControlEventTouchUpInside];
+        [_backgroundView addTarget:self action:@selector(touchBackgroundView) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backgroundView;
 }
@@ -62,38 +62,30 @@
 - (void)btnClick:(AdoTopMenuButton *)btn {
     NSInteger didColumn = btn.tag - kOriginTag;
     NSInteger deColumn = self.rotatedBtn.tag - kOriginTag;
-    CGRect superFrame = self.superview.frame;
-    CGRect selfFrame = self.frame;
-    CGRect backgroundFrame = CGRectOffset(superFrame, 0, CGRectGetMaxY(selfFrame));
+    
     if (btn == self.rotatedBtn) {
         self.rotatedBtn.rotated = !self.rotatedBtn.rotated;
         if (self.rotatedBtn.rotated) {
             if ([self.delegate respondsToSelector:@selector(menu:didSelectColumn:)]) {
                 [self.delegate menu:self didSelectColumn:didColumn];
             }
-            self.backgroundView.frame = backgroundFrame;
-            [self.superview addSubview:self.backgroundView];
-            [self.superview sendSubviewToBack:self.backgroundView];
+            [self showBackgroundView];
         } else {
             if ([self.delegate respondsToSelector:@selector(menu:deSelectColumn:)]) {
                 [self.delegate menu:self deSelectColumn:deColumn];
-                self.backgroundView.frame = CGRectZero;
-                [self.backgroundView removeFromSuperview];
             }
+            [self hideBackgroundView];
         }
     } else {
         if (self.rotatedBtn.rotated) {
             if ([self.delegate respondsToSelector:@selector(menu:deSelectColumn:)]) {
                 [self.delegate menu:self deSelectColumn:deColumn];
             }
-            self.backgroundView.frame = CGRectZero;
-            [self.backgroundView removeFromSuperview];
+            [self hideBackgroundView];
         }
         if ([self.delegate respondsToSelector:@selector(menu:didSelectColumn:)]) {
             [self.delegate menu:self didSelectColumn:didColumn];
-            self.backgroundView.frame = backgroundFrame;
-            [self.superview addSubview:self.backgroundView];
-            [self.superview sendSubviewToBack:self.backgroundView];
+            [self showBackgroundView];
         }
         btn.rotated = YES;
         self.rotatedBtn.rotated = NO;
@@ -101,14 +93,38 @@
     }
 }
 
-- (void)menuReset {
-    NSInteger deColumn = self.rotatedBtn.tag - kOriginTag;
-    self.rotatedBtn.rotated = NO;
+- (void)showBackgroundView {
+    CGRect superFrame = self.superview.frame;
+    CGRect selfFrame = self.frame;
+    CGRect backgroundFrame = CGRectOffset(superFrame, 0, CGRectGetMaxY(selfFrame));
+    self.backgroundView.frame = backgroundFrame;
+    [self.superview addSubview:self.backgroundView];
+    [self.superview sendSubviewToBack:self.backgroundView];
+}
+
+- (void)hideBackgroundView {
     self.backgroundView.frame = CGRectZero;
     [self.backgroundView removeFromSuperview];
-    if ([self.delegate respondsToSelector:@selector(menu:deSelectColumn:)]) {
-        [self.delegate menu:self deSelectColumn:deColumn];
+}
+
+
+- (void)touchBackgroundView {
+    NSInteger deColumn = self.rotatedBtn.tag - kOriginTag;
+    self.rotatedBtn.rotated = NO;
+    [self hideBackgroundView];
+    if ([self.delegate respondsToSelector:@selector(menu:touchBackgroundViewForColumn:)]) {
+        [self.delegate menu:self touchBackgroundViewForColumn:deColumn];
     }
 }
 
+- (void)menuReset {
+    self.rotatedBtn.rotated = NO;
+    [self hideBackgroundView];
+}
+
+- (void)reSetTitle:(NSString *)title ForColumn:(NSInteger)column {
+    NSAssert(column < self.subviews.count, @"column is bigger than total columns i have");
+    AdoTopMenuButton *columnButton = self.subviews[column];
+    [columnButton setTitle:title forState:UIControlStateNormal];
+}
 @end
