@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    AdoTopMenu *topMenu = [[AdoTopMenu alloc] initWithFrame:CGRectMake(0, 20, 365, 44)];
+    AdoTopMenu *topMenu = [[AdoTopMenu alloc] initWithFrame:CGRectMake(0, 20, 375, 44)];
     topMenu.dataSource = self;
     topMenu.delegate = self;
     [self.view addSubview:topMenu];

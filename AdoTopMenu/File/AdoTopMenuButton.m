@@ -14,13 +14,14 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        
         //triangle
         CGPoint indicatorPoint = CGPointMake(CGRectGetWidth(frame) - 8, CGRectGetHeight(frame) / 2 - 2);
         CAShapeLayer *indicator = [self createIndicatorWithColor:[UIColor blueColor] andPosition:indicatorPoint];
         [self.layer addSublayer:indicator];
         self.indicator = indicator;
         //line
-        CGPoint linePoint = CGPointMake(CGRectGetWidth(frame), CGRectGetHeight(frame) / 2);
+        CGPoint linePoint = CGPointMake(CGRectGetWidth(frame) + 0.5, CGRectGetHeight(frame) / 2);
         CAShapeLayer *line = [self createLineWithColor:[UIColor grayColor] andPosition:linePoint];
         [self.layer addSublayer:line];
         
@@ -102,7 +103,6 @@
     }else {
         [self rotateReset];
     }
-    
 }
 
 @end

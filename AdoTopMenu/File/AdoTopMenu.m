@@ -25,6 +25,14 @@
 
 @implementation AdoTopMenu
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor whiteColor];
+    }
+    return self;
+}
+
 - (UIControl *)backgroundView {
     if (!_backgroundView) {
         self.backgroundView = [[UIControl alloc] initWithFrame:CGRectZero];
@@ -42,7 +50,6 @@
         for (int i = 0; i < columns; i ++) {
             CGFloat btnX =  btnW * i;
             AdoTopMenuButton *btn = [[AdoTopMenuButton alloc] initWithFrame:CGRectMake(btnX, 0, btnW, CGRectGetHeight(self.frame))];
-//            btn.backgroundColor = kRandomColor;
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             btn.tag = kOriginTag + i;
             [self addSubview:btn];
@@ -57,6 +64,17 @@
         AdoTopMenuButton *btn = self.subviews[column];
         [btn setTitle:title forState:UIControlStateNormal];
     }
+}
+
+- (void)drawRect:(CGRect)rect {
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetLineCap(context,kCGLineCapSquare);
+    CGContextSetLineWidth(context,1.0);
+    CGContextSetGrayStrokeColor(context, 0.5, 0.5);
+    CGContextBeginPath(context);
+    CGContextMoveToPoint(context,0, CGRectGetHeight(rect));
+    CGContextAddLineToPoint(context,CGRectGetWidth(rect), CGRectGetHeight(rect));
+    CGContextStrokePath(context);
 }
 
 - (void)btnClick:(AdoTopMenuButton *)btn {
