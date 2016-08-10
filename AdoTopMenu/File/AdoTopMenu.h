@@ -21,8 +21,12 @@
 
 @protocol AdoTopMenuDelegate <NSObject>
 
+@optional
+
 - (void)menu:(AdoTopMenu *)menu didSelectColumn:(NSInteger)column;
+
 - (void)menu:(AdoTopMenu *)menu deSelectColumn:(NSInteger)column;
+
 - (void)menu:(AdoTopMenu *)menu touchBackgroundViewForColumn:(NSInteger)column;
 
 @end

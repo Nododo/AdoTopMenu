@@ -103,8 +103,8 @@
         }
         if ([self.delegate respondsToSelector:@selector(menu:didSelectColumn:)]) {
             [self.delegate menu:self didSelectColumn:didColumn];
-            [self showBackgroundView];
         }
+        [self showBackgroundView];
         btn.rotated = YES;
         self.rotatedBtn.rotated = NO;
         self.rotatedBtn = btn;
