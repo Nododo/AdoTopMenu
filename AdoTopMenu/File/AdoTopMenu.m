@@ -114,10 +114,10 @@
 - (void)showBackgroundView {
     CGRect superFrame = self.superview.frame;
     CGRect selfFrame = self.frame;
-    CGRect backgroundFrame = CGRectOffset(superFrame, 0, CGRectGetMaxY(selfFrame));
+    CGRect backgroundFrame = CGRectMake(0, CGRectGetMaxY(selfFrame), CGRectGetWidth(superFrame), CGRectGetHeight(superFrame) - CGRectGetHeight(selfFrame));
     self.backgroundView.frame = backgroundFrame;
     [self.superview addSubview:self.backgroundView];
-    [self.superview sendSubviewToBack:self.backgroundView];
+    [self.superview bringSubviewToFront:self.backgroundView];
 }
 
 - (void)hideBackgroundView {
