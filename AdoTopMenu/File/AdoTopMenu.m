@@ -84,10 +84,10 @@
     if (btn == self.rotatedBtn) {
         self.rotatedBtn.rotated = !self.rotatedBtn.rotated;
         if (self.rotatedBtn.rotated) {
+            [self showBackgroundView];
             if ([self.delegate respondsToSelector:@selector(menu:didSelectColumn:)]) {
                 [self.delegate menu:self didSelectColumn:didColumn];
             }
-            [self showBackgroundView];
         } else {
             if ([self.delegate respondsToSelector:@selector(menu:deSelectColumn:)]) {
                 [self.delegate menu:self deSelectColumn:deColumn];
@@ -101,10 +101,10 @@
             }
             [self hideBackgroundView];
         }
+        [self showBackgroundView];
         if ([self.delegate respondsToSelector:@selector(menu:didSelectColumn:)]) {
             [self.delegate menu:self didSelectColumn:didColumn];
         }
-        [self showBackgroundView];
         btn.rotated = YES;
         self.rotatedBtn.rotated = NO;
         self.rotatedBtn = btn;
