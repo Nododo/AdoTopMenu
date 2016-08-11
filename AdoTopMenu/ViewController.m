@@ -23,11 +23,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    AdoTopMenu *topMenu = [[AdoTopMenu alloc] initWithFrame:CGRectMake(0, 20, 375, 44)];
+    AdoTopMenu *topMenu = [[AdoTopMenu alloc] initWithFrame:CGRectMake(0, 64, 375, 44)];
     topMenu.dataSource = self;
     topMenu.delegate = self;
     [self.view addSubview:topMenu];
     self.topMenu = topMenu;
+}
+- (IBAction)reloadMenu:(id)sender {
+    [self.topMenu menuReloadDataCompleteBlock:^{
+        [self.button0 removeFromSuperview];
+        [self.button1 removeFromSuperview];
+        [self.button2 removeFromSuperview];
+        [self.button3 removeFromSuperview];
+    }];
 }
 
 - (void)menu:(AdoTopMenu *)menu didSelectColumn:(NSInteger)column {
@@ -85,7 +93,7 @@
 }
 
 - (void)showButton0 {
-    UIButton *button0 = [[UIButton alloc] initWithFrame:CGRectMake(0, 64, 375, 100)];
+    UIButton *button0 = [[UIButton alloc] initWithFrame:CGRectMake(0, 108, 375, 100)];
     button0.backgroundColor = [UIColor greenColor];
     [self.view addSubview:button0];
     [button0 addTarget:self action:@selector(tapB0) forControlEvents:UIControlEventTouchUpInside];
@@ -100,13 +108,12 @@
 }
 
 - (void)showButton1 {
-    UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 64, 375, 100)];
+    UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 108, 375, 100)];
     button1.backgroundColor = [UIColor cyanColor];
     [self.view addSubview:button1];
     [button1 addTarget:self action:@selector(tapB1) forControlEvents:UIControlEventTouchUpInside];
     self.button1 = button1;
 }
-
 
 - (void)tapB2 {
     [self.button2 removeFromSuperview];
@@ -114,7 +121,7 @@
 }
 
 - (void)showButton2 {
-    UIButton *button2 = [[UIButton alloc] initWithFrame:CGRectMake(0, 64, 375, 100)];
+    UIButton *button2 = [[UIButton alloc] initWithFrame:CGRectMake(0, 108, 375, 100)];
     button2.backgroundColor = [UIColor greenColor];
     [self.view addSubview:button2];
     [button2 addTarget:self action:@selector(tapB2) forControlEvents:UIControlEventTouchUpInside];
@@ -127,10 +134,11 @@
 }
 
 - (void)showButton3 {
-    UIButton *button3 = [[UIButton alloc] initWithFrame:CGRectMake(0, 64, 375, 100)];
+    UIButton *button3 = [[UIButton alloc] initWithFrame:CGRectMake(0, 108, 375, 100)];
     button3.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:button3];
     [button3 addTarget:self action:@selector(tapB3) forControlEvents:UIControlEventTouchUpInside];
     self.button3 = button3;
 }
+
 @end

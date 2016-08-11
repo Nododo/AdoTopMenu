@@ -145,4 +145,17 @@
     AdoTopMenuButton *columnButton = self.subviews[column];
     [columnButton setTitle:title forState:UIControlStateNormal];
 }
+
+- (void)menuReloadDataCompleteBlock:(void(^)())completeBlock {
+    NSInteger columns = [_dataSource numberOfColumnsInMenu:self];
+    for (int i = 0; i < columns; i ++) {
+        NSString *title = [self.dataSource menu:self titleForColumn:i];
+        AdoTopMenuButton *btn = self.subviews[i];
+        [btn setTitle:title forState:UIControlStateNormal];
+    }
+    [self menuReset];
+    if (completeBlock) {
+        completeBlock();
+    }
+}
 @end

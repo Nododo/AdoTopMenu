@@ -40,4 +40,6 @@
 - (void)reSetTitle:(NSString *)title ForColumn:(NSInteger)column;
 
 - (void)menuReset;
+
+- (void)menuReloadDataCompleteBlock:(void(^)())completeBlock;
 @end
