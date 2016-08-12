@@ -15,6 +15,7 @@
 		1F2941C71D54643000971C96 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F2941C51D54643000971C96 /* LaunchScreen.storyboard */; };
 		1F5E7CF51D5D7C0500AB23D5 /* AdoTopMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5E7CF21D5D7C0500AB23D5 /* AdoTopMenu.m */; };
 		1F5E7CF61D5D7C0500AB23D5 /* AdoTopMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5E7CF41D5D7C0500AB23D5 /* AdoTopMenuButton.m */; };
+		1F5E7CF81D5DA02600AB23D5 /* AdoTopMenu.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1F5E7CF71D5DA02600AB23D5 /* AdoTopMenu.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		1F5E7CF21D5D7C0500AB23D5 /* AdoTopMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdoTopMenu.m; sourceTree = "<group>"; };
 		1F5E7CF31D5D7C0500AB23D5 /* AdoTopMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdoTopMenuButton.h; sourceTree = "<group>"; };
 		1F5E7CF41D5D7C0500AB23D5 /* AdoTopMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdoTopMenuButton.m; sourceTree = "<group>"; };
+		1F5E7CF71D5DA02600AB23D5 /* AdoTopMenu.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = AdoTopMenu.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				1F2941BB1D54643000971C96 /* AppDelegate.m */,
 				1F2941BD1D54643000971C96 /* ViewController.h */,
 				1F2941BE1D54643000971C96 /* ViewController.m */,
+				1F5E7CF71D5DA02600AB23D5 /* AdoTopMenu.gif */,
 				1F2941C01D54643000971C96 /* Main.storyboard */,
 				1F2941C31D54643000971C96 /* Assets.xcassets */,
 				1F2941C51D54643000971C96 /* LaunchScreen.storyboard */,
@@ -156,6 +159,7 @@
 			files = (
 				1F2941C71D54643000971C96 /* LaunchScreen.storyboard in Resources */,
 				1F2941C41D54643000971C96 /* Assets.xcassets in Resources */,
+				1F5E7CF81D5DA02600AB23D5 /* AdoTopMenu.gif in Resources */,
 				1F2941C21D54643000971C96 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

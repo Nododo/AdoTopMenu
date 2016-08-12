@@ -25,13 +25,13 @@
     [super viewDidLoad];
     self.columns = 4;
     AdoTopMenu *topMenu = [[AdoTopMenu alloc] initWithFrame:CGRectMake(0, 64, 375, 44)];
-    [topMenu menuSetTitleColor:[UIColor greenColor]];
+    topMenu.dataSource = self;
+    topMenu.delegate = self;
+    [topMenu menuSetTitleColor:[UIColor blackColor]];
     [topMenu menuSetSeperatorColor:[UIColor redColor]];
     [topMenu menuSetBottomLineColor:[UIColor cyanColor]];
     [topMenu menuSetIndicatorColor:[UIColor magentaColor]];
     [topMenu menuSetTitleFont:[UIFont systemFontOfSize:10]];
-    topMenu.dataSource = self;
-    topMenu.delegate = self;
     [self.view addSubview:topMenu];
     self.topMenu = topMenu;
 }
