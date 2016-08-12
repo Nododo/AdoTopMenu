@@ -32,6 +32,7 @@
     [topMenu menuSetBottomLineColor:[UIColor cyanColor]];
     [topMenu menuSetIndicatorColor:[UIColor magentaColor]];
     [topMenu menuSetTitleFont:[UIFont systemFontOfSize:10]];
+    [topMenu menuSetTitleBackgroundColor:[UIColor colorWithRed:0.5 green:0.4 blue:0.3 alpha:0.2]];
     [self.view addSubview:topMenu];
     self.topMenu = topMenu;
 }

@@ -49,6 +49,10 @@
 
 - (void)menuSetTitleColor:(UIColor *)titleColor forColumn:(NSInteger)column;
 
+- (void)menuSetTitleBackgroundColor:(UIColor *)titleBackgroundColor;
+
+- (void)menuSetTitleBackgroundColor:(UIColor *)titleBackgroundColor forColumn:(NSInteger)column;
+
 - (void)menuSetTitleFont:(UIFont *)titlefont;
 
 - (void)menuSetTitleFont:(UIFont *)titleFont forColumn:(NSInteger)column;

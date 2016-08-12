@@ -17,11 +17,12 @@
 
 @property (nonatomic,weak)AdoTopMenuButton *rotatedBtn;
 @property (nonatomic,strong)UIControl *backgroundView;
-@property (nonatomic,strong)UIColor *bottomLineColor;
 @property (nonatomic,strong)UIFont *titleFont;
+@property (nonatomic,strong)UIColor *bottomLineColor;
 @property (nonatomic,strong)UIColor *titleColor;
 @property (nonatomic,strong)UIColor *indicatorColor;
 @property (nonatomic,strong)UIColor *seperatorColor;
+@property (nonatomic,strong)UIColor *titleBackgroundColor;
 
 @end
 
@@ -190,6 +191,20 @@
     NSAssert(column < self.subviews.count, @"you must set the dataSource first or column is bigger than total columns i have");
     AdoTopMenuButton *btn = self.subviews[column];
     [btn setTitleColor:titleColor forState:UIControlStateNormal];
+}
+
+- (void)menuSetTitleBackgroundColor:(UIColor *)titleBackgroundColor {
+    _titleBackgroundColor = titleBackgroundColor;
+    NSInteger columns = [_dataSource numberOfColumnsInMenu:self];
+    for (int i = 0; i < columns; i ++) {
+        [self menuSetTitleBackgroundColor:titleBackgroundColor forColumn:i];
+    }
+}
+
+- (void)menuSetTitleBackgroundColor:(UIColor *)titleBackgroundColor forColumn:(NSInteger)column {
+    NSAssert(column < self.subviews.count, @"you must set the dataSource first or column is bigger than total columns i have");
+    AdoTopMenuButton *btn = self.subviews[column];
+    btn.backgroundColor = titleBackgroundColor;
 }
 
 - (void)menuSetIndicatorColor:(UIColor *)indicatorColor {
