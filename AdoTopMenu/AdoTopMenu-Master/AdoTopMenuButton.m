@@ -24,12 +24,12 @@
         CGPoint linePoint = CGPointMake(CGRectGetWidth(frame) + 0.5, CGRectGetHeight(frame) / 2);
         CAShapeLayer *line = [self createLineWithColor:[UIColor grayColor] andPosition:linePoint];
         [self.layer addSublayer:line];
+        self.line = line;
         
-        [self setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         self.titleLabel.font = [UIFont systemFontOfSize:14];
     }
-    
     return self;
 }
 

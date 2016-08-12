@@ -9,17 +9,19 @@
 #import "AdoTopMenu.h"
 #import "AdoTopMenuButton.h"
 
-#define kScreenWidth [[UIScreen mainScreen]                                                                                                                         bounds].size.width
-#define kScreenHeight [[UIScreen mainScreen]                                                                                                                        bounds].size.height
-#define kOriginTag                                                                                                                                                  1000
-
-#define kRandomColor                    ([UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0f])
+#define kScreenWidth  [[UIScreen mainScreen] bounds].size.width
+#define kScreenHeight [[UIScreen mainScreen] bounds].size.height
+#define kOriginTag    1000
 
 @interface AdoTopMenu ()
 
 @property (nonatomic,weak)AdoTopMenuButton *rotatedBtn;
 @property (nonatomic,strong)UIControl *backgroundView;
-
+@property (nonatomic,strong)UIColor *bottomLineColor;
+@property (nonatomic,strong)UIFont *titleFont;
+@property (nonatomic,strong)UIColor *titleColor;
+@property (nonatomic,strong)UIColor *indicatorColor;
+@property (nonatomic,strong)UIColor *seperatorColor;
 
 @end
 
@@ -53,16 +55,20 @@
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             btn.tag = kOriginTag + i;
             [self addSubview:btn];
-            [self configTitleForBtnAtColumn:i];
+            [self configBtnAtColumn:i];
         }
     }
 }
 
-- (void)configTitleForBtnAtColumn:(NSInteger)column {
+- (void)configBtnAtColumn:(NSInteger)column {
     if ([self.dataSource respondsToSelector:@selector(menu:titleForColumn:)]) {
         NSString *title = [self.dataSource menu:self titleForColumn:column];
         AdoTopMenuButton *btn = self.subviews[column];
         [btn setTitle:title forState:UIControlStateNormal];
+        btn.titleLabel.font = _titleFont?:[UIFont systemFontOfSize:14];
+        [btn setTitleColor:_titleColor?:[UIColor blackColor] forState:UIControlStateNormal];
+        btn.indicator.fillColor = (_indicatorColor?: [UIColor blueColor]).CGColor;
+        btn.line.strokeColor = (_seperatorColor?:[UIColor grayColor]).CGColor;
     }
 }
 
@@ -70,7 +76,7 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineCap(context,kCGLineCapSquare);
     CGContextSetLineWidth(context,1.0);
-    CGContextSetGrayStrokeColor(context, 0.5, 0.5);
+    CGContextSetStrokeColorWithColor(context, (self.bottomLineColor?: [UIColor grayColor]).CGColor);
     CGContextBeginPath(context);
     CGContextMoveToPoint(context,0, CGRectGetHeight(rect));
     CGContextAddLineToPoint(context,CGRectGetWidth(rect), CGRectGetHeight(rect));
@@ -125,7 +131,6 @@
     [self.backgroundView removeFromSuperview];
 }
 
-
 - (void)touchBackgroundView {
     NSInteger deColumn = self.rotatedBtn.tag - kOriginTag;
     self.rotatedBtn.rotated = NO;
@@ -140,22 +145,73 @@
     [self hideBackgroundView];
 }
 
-- (void)reSetTitle:(NSString *)title ForColumn:(NSInteger)column {
-    NSAssert(column < self.subviews.count, @"column is bigger than total columns i have");
+- (void)reSetTitle:(NSString *)title forColumn:(NSInteger)column {
+    NSAssert(column < self.subviews.count, @"you must set the dataSource first or column is bigger than total columns i have");
     AdoTopMenuButton *columnButton = self.subviews[column];
     [columnButton setTitle:title forState:UIControlStateNormal];
 }
 
 - (void)menuReloadDataCompleteBlock:(void(^)())completeBlock {
-    NSInteger columns = [_dataSource numberOfColumnsInMenu:self];
-    for (int i = 0; i < columns; i ++) {
-        NSString *title = [self.dataSource menu:self titleForColumn:i];
-        AdoTopMenuButton *btn = self.subviews[i];
-        [btn setTitle:title forState:UIControlStateNormal];
-    }
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self menuReset];
+    self.dataSource = _dataSource;
     if (completeBlock) {
         completeBlock();
     }
+}
+
+- (void)menuSetBackgroundViewColor:(UIColor *)backgroundViewColor {
+    _backgroundView.backgroundColor = backgroundViewColor;
+}
+
+- (void)menuSetTitleFont:(UIFont *)titlefont {
+    _titleFont = titlefont;
+    NSInteger columns = [_dataSource numberOfColumnsInMenu:self];
+    for (int i = 0; i < columns; i ++) {
+        [self menuSetTitleFont:titlefont forColumn:i];
+    }
+}
+
+- (void)menuSetTitleFont:(UIFont *)titleFont forColumn:(NSInteger)column {
+    NSAssert(column < self.subviews.count, @"you must set the dataSource first or column is bigger than total columns i have");
+    AdoTopMenuButton *btn = self.subviews[column];
+    [btn.titleLabel setFont:titleFont];
+}
+
+- (void)menuSetTitleColor:(UIColor *)titleColor {
+    _titleColor = titleColor;
+    NSInteger columns = [_dataSource numberOfColumnsInMenu:self];
+    for (int i = 0; i < columns; i ++) {
+        [self menuSetTitleColor:titleColor forColumn:i];
+    }
+}
+
+- (void)menuSetTitleColor:(UIColor *)titleColor forColumn:(NSInteger)column {
+    NSAssert(column < self.subviews.count, @"you must set the dataSource first or column is bigger than total columns i have");
+    AdoTopMenuButton *btn = self.subviews[column];
+    [btn setTitleColor:titleColor forState:UIControlStateNormal];
+}
+
+- (void)menuSetIndicatorColor:(UIColor *)indicatorColor {
+    _indicatorColor = indicatorColor;
+    NSInteger columns = [_dataSource numberOfColumnsInMenu:self];
+    for (int i = 0; i < columns; i ++) {
+        AdoTopMenuButton *btn = self.subviews[i];
+        btn.indicator.fillColor = indicatorColor.CGColor;
+    }
+}
+
+- (void)menuSetSeperatorColor:(UIColor *)seperatorColor {
+    _seperatorColor = seperatorColor;
+    NSInteger columns = [_dataSource numberOfColumnsInMenu:self];
+    for (int i = 0; i < columns; i ++) {
+        AdoTopMenuButton *btn = self.subviews[i];
+        btn.line.strokeColor = seperatorColor.CGColor;
+    }
+}
+
+- (void)menuSetBottomLineColor:(UIColor *)bottomLineColor {
+    self.bottomLineColor = bottomLineColor;
+    [self setNeedsDisplay];
 }
 @end

@@ -10,8 +10,10 @@
 
 @interface AdoTopMenuButton : UIButton
 
+@property (nonatomic,assign)BOOL rotated;
+
 @property (nonatomic,weak)CAShapeLayer *indicator;
 
-@property (nonatomic,assign)BOOL rotated;
+@property (nonatomic,weak)CAShapeLayer *line;
 
 @end

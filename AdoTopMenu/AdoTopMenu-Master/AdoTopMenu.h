@@ -37,9 +37,25 @@
 
 @property (nonatomic, weak) id <AdoTopMenuDataSource> dataSource;
 
-- (void)reSetTitle:(NSString *)title ForColumn:(NSInteger)column;
+- (void)reSetTitle:(NSString *)title forColumn:(NSInteger)column;
 
 - (void)menuReset;
 
 - (void)menuReloadDataCompleteBlock:(void(^)())completeBlock;
+
+- (void)menuSetBackgroundViewColor:(UIColor *)backgroundViewColor;
+
+- (void)menuSetTitleColor:(UIColor *)titleColor;
+
+- (void)menuSetTitleColor:(UIColor *)titleColor forColumn:(NSInteger)column;
+
+- (void)menuSetTitleFont:(UIFont *)titlefont;
+
+- (void)menuSetTitleFont:(UIFont *)titleFont forColumn:(NSInteger)column;
+
+- (void)menuSetIndicatorColor:(UIColor *)indicatorColor;
+
+- (void)menuSetSeperatorColor:(UIColor *)seperatorColor;
+
+- (void)menuSetBottomLineColor:(UIColor *)bottomLineColor;
 @end

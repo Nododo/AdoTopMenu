@@ -15,7 +15,7 @@
 @property (nonatomic,weak)UIButton *button2;
 @property (nonatomic,weak)UIButton *button3;
 @property (nonatomic,weak)AdoTopMenu *topMenu;
-
+@property (nonatomic,assign)NSInteger columns;
 
 @end
 
@@ -23,18 +23,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.columns = 4;
     AdoTopMenu *topMenu = [[AdoTopMenu alloc] initWithFrame:CGRectMake(0, 64, 375, 44)];
+    [topMenu menuSetTitleColor:[UIColor greenColor]];
+    [topMenu menuSetSeperatorColor:[UIColor redColor]];
+    [topMenu menuSetBottomLineColor:[UIColor cyanColor]];
+    [topMenu menuSetIndicatorColor:[UIColor magentaColor]];
+    [topMenu menuSetTitleFont:[UIFont systemFontOfSize:10]];
     topMenu.dataSource = self;
     topMenu.delegate = self;
     [self.view addSubview:topMenu];
     self.topMenu = topMenu;
 }
 - (IBAction)reloadMenu:(id)sender {
+    self.columns = 6;
     [self.topMenu menuReloadDataCompleteBlock:^{
         [self.button0 removeFromSuperview];
         [self.button1 removeFromSuperview];
         [self.button2 removeFromSuperview];
         [self.button3 removeFromSuperview];
+        [self.topMenu menuSetBackgroundViewColor:[UIColor darkGrayColor]];
+
     }];
 }
 
@@ -55,7 +64,7 @@
 }
 
 - (NSInteger)numberOfColumnsInMenu:(AdoTopMenu *)menu {
-    return 4;
+    return self.columns;
 }
 
 - (NSString *)menu:(AdoTopMenu *)menu titleForColumn:(NSInteger)column {
@@ -98,7 +107,7 @@
     [self.view addSubview:button0];
     [button0 addTarget:self action:@selector(tapB0) forControlEvents:UIControlEventTouchUpInside];
     self.button0 = button0;
-    [self.topMenu reSetTitle:@"haveTouch0" ForColumn:0];
+    [self.topMenu reSetTitle:@"haveTouch00" forColumn:0];
 }
 
 
